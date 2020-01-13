@@ -6,5 +6,6 @@ urlpatterns =patterns('',
   url(r'^survey/(?P<survey_id>\d+)/$', views.survey_view, name="survey-detail"),
   url(r'^admin_login/$', views.admin_login, name="admin-login"),
   url(r'^admin_panel/$', views.admin_panel, name="admin-panel"),
-  url(r'^admin_panel/survey_delete/$', views.survey_delete, name="admin-survey-delete")
+  url(r'^admin_panel/survey_delete/$', views.survey_delete, name="admin-survey-delete"),
+  url(r'^admin_panel/survey/(?P<survey_id>\d+)/$', views.admin_answers, name="answer-detail"),
 )

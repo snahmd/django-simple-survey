@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from models import Survey, SurveyAnswer
+from models import Survey, SurveyAnswer, Question
 from django.contrib.auth import authenticate, login
 # Create your views here.
 def index(request):
@@ -55,4 +55,28 @@ def survey_delete(request):
   sv_del.delete()
   return redirect('admin-panel')
 
-  
+def admin_answers(request, survey_id):
+  survey = Survey.objects.get(id=survey_id)
+  answers = survey.surveyanswer_set.all()
+  ctx = {'answers': answers, 'survey':survey}
+  return render(request, 'admin-survey-detail.html', ctx)
+
+def survey_create_view(request):
+  return render(request, 'survey-create.html',{})
+
+def question_add_view(request):
+  return render(request, 'question-add.html',{})
+
+def choice_add_view(request):
+  question = Question.objects.get(id=int(request.session['current_question']))
+  return render(request, 'choice-add.html',{'question':question})
+
+def survey_create(request):
+  newSurvey = Survey()
+  newSurvey.title = request.POST['survey_title']
+  newSurvey.save()
+  request.session['current_survey'] = newSurvey.id
+
+
+
+ 
